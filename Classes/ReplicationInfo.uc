@@ -8,7 +8,7 @@ simulated event Tick(float DeltaTime) {
     if (!initialized) {
         localController= GetALocalPlayerController();
         if (localController != none) {
-            localController.Interactions.InsertItem(0, new class'Interaction');
+            localController.Interactions.InsertItem(0, new class'KF2StatsX.Interaction');
         }
         initialized= true;
     }
