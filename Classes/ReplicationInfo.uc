@@ -1,15 +1,14 @@
 class ReplicationInfo extends Engine.ReplicationInfo;
 
-var private bool initialized;
-
 simulated event Tick(float DeltaTime) {
     local PlayerController localController;
+    local Interaction interaction;
 
-    if (!initialized) {
-        localController= GetALocalPlayerController();
-        if (localController != none) {
-            localController.Interactions.InsertItem(0, new class'KF2StatsX.Interaction');
-        }
-        initialized= true;
+    localController= GetALocalPlayerController();
+    if (localController != none && localController.IsA('KFPlayerController')) {
+        interaction = new class'KF2StatsX.Interaction';
+        interaction.owner = KFPlayerController(localController);
+        localController.Interactions.InsertItem(0, interaction);
     }
+    Disable('Tick');
 }
