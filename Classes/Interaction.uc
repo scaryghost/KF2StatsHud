@@ -13,6 +13,15 @@ var KFPlayerController owner;
 
 delegate Fn_Canvas_Float_Float(Canvas canvas, float x, float y);
 
+function Initialized() {
+    `Log("What is nextGroup? '" $ nextGroup $ "'");
+    if (nextGroup == '') {
+        nextGroup = 'F4';
+        SaveConfig();
+        `Log("Saving nextGroup default value");
+    }
+}
+
 function bool keyEvent(int ControllerId, name Key, EInputEvent EventType, optional float AmountDepressed=1.f,
         optional bool bGamepad) {
     if (Key == nextGroup && EventType == IE_Pressed) {
