@@ -154,6 +154,67 @@ private function drawKillStats(Canvas canvas, float x, float y) {
 
 }
 
+private function drawPerkXP(Canvas canvas, float x, float y) {
+    local string text;
+    local float width, height, x0, longest, highestKills, offset, widest;
+    local EphemeralMatchStats.PerkXPGain it;
+
+    canvas.Font= class'Engine'.static.GetSmallFont();
+
+    longest = 0;
+    highestKills = 0;
+    widest = 0;
+    foreach owner.MatchStats.PerkXPList(it) {
+        text = it.PerkClass.default.PerkName;
+        canvas.TextSize(text, width, height);
+        offset = height;
+
+        if (longest <= width) {
+            longest = width;
+        }
+
+        canvas.TextSize(string(it.XPDelta), width, height);
+        if (highestKills < width) {
+            highestKills = width;
+        }
+
+        canvas.TextSize("(" $ it.SecondaryXPGain $ ")", width, height);
+        if (widest < width) {
+            widest = width;
+        }
+    }
+
+    canvas.SetPos(x, y);
+    canvas.SetDrawColorStruct(backgroundColor);
+    canvas.DrawTileStretched(txtBackground, x + longest * 1.5 + highestKills * 1.5 + widest, 
+            (owner.MatchStats.PerkXPList.length + 1) * height, 0, 0, 512, 512);
+
+    text = "Perks";
+    canvas.SetPos(x, y);
+    canvas.SetDrawColorStruct(txtColor);
+    canvas.DrawText(text);
+
+    x0 = x;
+    foreach owner.MatchStats.PerkXPList(it) {
+        y+= offset;
+        text = it.PerkClass.default.PerkName;
+
+        canvas.SetPos(x, y);
+        canvas.DrawText(text);
+
+        x = longest * 1.5;
+        canvas.SetPos(x, y);
+        canvas.DrawText(string(it.XPDelta));
+
+        x += highestKills * 1.50;
+        text = "(" $ it.SecondaryXPGain $ ")";
+        canvas.SetPos(x, y);
+        canvas.DrawText(text);
+
+        x = x0;
+    }
+}
+
 defaultproperties
 {
     currentStat=-1
@@ -165,4 +226,5 @@ defaultproperties
 
     statDrawers[0]=drawWeaponStats;
     statDrawers[1]=drawKillStats;
+    statDrawers[2]=drawPerkXP;
 }
