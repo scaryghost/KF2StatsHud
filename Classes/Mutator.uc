@@ -7,7 +7,7 @@ function bool CheckReplacement(Actor Other) {
             PlayerController(Other.Owner).bIsPlayer) {
         pri= PlayerReplicationInfo(Other);
 
-        Spawn(class'KF2StatsX.ReplicationInfo', pri.Owner);
+        Spawn(class'StatsHud.ReplicationInfo', pri.Owner);
     }
     return super.CheckReplacement(Other);
 }

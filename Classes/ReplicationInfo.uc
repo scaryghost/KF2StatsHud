@@ -6,7 +6,7 @@ simulated event Tick(float DeltaTime) {
 
     localController= GetALocalPlayerController();
     if (localController != none && localController.IsA('KFPlayerController')) {
-        interaction = new class'KF2StatsX.Interaction';
+        interaction = new class'StatsHud.Interaction';
         interaction.OnInitialize();
         interaction.owner = KFPlayerController(localController);
         localController.Interactions.InsertItem(0, interaction);
