@@ -43,7 +43,7 @@ function String weaponPrimary(KFPlayerController controller, int i) {
     return string(controller.MatchStats.WeaponDamageList[i].Kills);
 }
 function String weaponSecondary(KFPlayerController controller, int i) {
-    return string(controller.MatchStats.WeaponDamageList[i].HeadShots);
+    return "";
 }
 
 function int killLength(KFPlayerController controller) {
